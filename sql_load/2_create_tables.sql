@@ -1,4 +1,5 @@
 -- Create company_dim table with primary key
+DROP TABLE IF EXISTS public.company_dim;
 CREATE TABLE public.company_dim
 (
     company_id INT PRIMARY KEY,
@@ -9,6 +10,7 @@ CREATE TABLE public.company_dim
 );
 
 -- Create skills_dim table with primary key
+DROP TABLE IF EXISTS public.skills_dim;
 CREATE TABLE public.skills_dim
 (
     skill_id INT PRIMARY KEY,
@@ -17,6 +19,7 @@ CREATE TABLE public.skills_dim
 );
 
 -- Create job_postings_fact table with primary key
+DROP TABLE IF EXISTS public.job_postings_fact;
 CREATE TABLE public.job_postings_fact
 (
     job_id INT PRIMARY KEY,
@@ -39,6 +42,7 @@ CREATE TABLE public.job_postings_fact
 );
 
 -- Create skills_job_dim table with a composite primary key and foreign keys
+DROP TABLE IF EXISTS public.skills_job_dim;
 CREATE TABLE public.skills_job_dim
 (
     job_id INT,
