@@ -8,7 +8,7 @@ SELECT
     job_posted_date :: DATE
 FROM
     job_postings_fact AS j
-JOIN
+INNER JOIN
     company_dim AS c
 ON
     j.company_id = c.company_id

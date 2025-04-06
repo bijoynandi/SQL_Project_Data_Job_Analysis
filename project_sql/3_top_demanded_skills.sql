@@ -3,11 +3,11 @@ SELECT
     COUNT ( jd.job_id ) AS skill_count
 FROM 
     job_postings_fact AS jf
-JOIN
+INNER JOIN
     skills_job_dim AS jd
 ON
     jf.job_id = jd.job_id
-JOIN
+INNER JOIN
     skills_dim AS sd
 ON
     jd.skill_id = sd.skill_id

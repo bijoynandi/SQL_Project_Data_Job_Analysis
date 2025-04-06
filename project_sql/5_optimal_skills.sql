@@ -5,11 +5,11 @@ WITH skills_demand AS (
         COUNT ( jd.job_id ) AS skill_count
     FROM 
         job_postings_fact AS jf
-    JOIN
+    INNER JOIN
         skills_job_dim AS jd
     ON
         jf.job_id = jd.job_id
-    JOIN
+    INNER JOIN
         skills_dim AS sd
     ON
         jd.skill_id = sd.skill_id
@@ -18,7 +18,8 @@ WITH skills_demand AS (
         AND job_work_from_home = TRUE
         AND salary_year_avg IS NOT NULL
     GROUP BY
-        sd.skill_id
+        sd.skill_id,
+        sd.skills
 ),
 
     avg_salary AS (
@@ -28,11 +29,11 @@ WITH skills_demand AS (
         ROUND ( AVG (  salary_year_avg ), 0 ) AS avg_salary
     FROM 
         job_postings_fact AS jf
-    JOIN
+    INNER JOIN
         skills_job_dim AS jd
     ON
         jf.job_id = jd.job_id
-    JOIN
+    INNER JOIN
         skills_dim AS sd
     ON
         jd.skill_id = sd.skill_id
@@ -41,7 +42,8 @@ WITH skills_demand AS (
         AND job_title_short = 'Data Analyst'
         AND job_work_from_home = TRUE
     GROUP BY
-        sd.skill_id
+        sd.skill_id,
+        sd.skills
 )
 
 SELECT
@@ -51,7 +53,7 @@ SELECT
     avg.avg_salary
 FROM
     skills_demand AS sdm
-JOIN
+INNER JOIN
     avg_salary AS avg
 ON
     sdm.skill_id = avg.skill_id
@@ -73,11 +75,11 @@ SELECT
     ROUND ( AVG (  salary_year_avg ), 0 ) AS avg_salary
 FROM 
     job_postings_fact AS jf
-JOIN
+INNER JOIN
     skills_job_dim AS jd
 ON
     jf.job_id = jd.job_id
-JOIN
+INNER JOIN
     skills_dim AS sd
 ON
     jd.skill_id = sd.skill_id
@@ -86,7 +88,8 @@ WHERE
     AND salary_year_avg IS NOT NULL
     AND job_work_from_home = TRUE
 GROUP BY
-    sd.skill_id
+    sd.skill_id,
+    sd.skills
 HAVING
     COUNT ( jd.job_id ) > 10
     AND AVG (  salary_year_avg ) > 50000
